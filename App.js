@@ -74,8 +74,9 @@ export default function App() {
                   <AntDesign name="pluscircleo" size={size} color={color} />
                 ),
               }}
-              component={ManageListing}
-            />
+            >
+              {() => <ManageListing user={user} />}
+            </Tab.Screen>
 
             <Tab.Screen
               name="Manage Booking"

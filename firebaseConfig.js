@@ -1,14 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-import {
-  initializeAuth,
-  signInWithEmailAndPassword,
-  getReactNativePersistence,
-  signOut,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 // TODO: Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,9 +18,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Services (database, auth, etc)
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-});
+const auth = getAuth(app);
+
 const db = getFirestore(app);
 
-export { db, auth, signInWithEmailAndPassword, signOut };
+const createRentalListing = async (vehicle) => {
+  try {
+    const docRef = await addDoc(collection(db, "rentals"), vehicle);
+    console.log("Document written with ID: ", docRef.id);
+    return [null, docRef.id];
+  } catch (e) {
+    console.error("Error adding document: ", e);
+    return [e, null];
+  }
+};
+
+export { db, auth, signInWithEmailAndPassword, signOut, createRentalListing };

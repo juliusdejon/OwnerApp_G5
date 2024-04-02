@@ -13,7 +13,10 @@ import * as Location from "expo-location";
 import Search from "../components/Search";
 import Button from "../components/Button";
 
-function ManageListing() {
+import { createRentalListing } from "../firebaseConfig";
+
+function ManageListing(props) {
+  const { user } = props;
   const [search, setSearch] = useState("");
   const [name, onChangeName] = useState("");
   const [photo, onChangePhoto] = useState("");
@@ -24,8 +27,45 @@ function ManageListing() {
   const [address, onChangeAddress] = useState("");
   const [price, onChangePrice] = useState("");
 
-  const onCreateListing = () => {
-    // TODO: insert listing to firebase
+  const resetStates = () => {
+    setSearch("");
+    onChangeName("");
+    onChangePhoto("");
+    onChangeSeating("");
+    onChangeMsrp("");
+    onChangeDriveTrain("");
+    onChangeLicensePlate("");
+    onChangeAddress("");
+    onChangePrice("");
+  };
+
+  const onCreateListing = async () => {
+    const loc = await Location.geocodeAsync(address);
+    const resLoc = loc[0];
+    try {
+      const [error, response] = await createRentalListing({
+        name,
+        photo,
+        seating,
+        msrp,
+        driveTrain,
+        licensePlate,
+        price,
+        address,
+        latitude: resLoc.latitude,
+        longitude: resLoc.longitude,
+        ownerEmail: user,
+      });
+      if (error) {
+        alert("Error creating" + error.message);
+      }
+      if (response) {
+        alert("Successfully Created Listing");
+        resetStates();
+      }
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   const [vehicles, setVehicles] = useState([]);
@@ -43,7 +83,10 @@ function ManageListing() {
         longitude: location.coords.longitude,
       });
       const c = res[0];
-      onChangeAddress(`${c.name}, ${c.city}, ${c.country}`);
+      console.log(c);
+      onChangeAddress(
+        `${c.streetNumber} ${c.street} ${c.city} ${c.postalCode}`
+      );
     })();
   }, []);
 
