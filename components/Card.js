@@ -1,4 +1,5 @@
 import { View, Image, Text } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 
 function Card(props) {
   const { photo, price, address } = props;
@@ -18,29 +19,58 @@ function Card(props) {
         source={{ uri: photo }}
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
-      <Text
+      <View
         style={{
           position: "absolute",
-          fontWeight: "bold",
-          fontSize: 18,
-          top: 12,
           color: "black",
-          left: 16,
+          borderRadius: 30,
+          backgroundColor: "#f1c40f",
+          borderBottomLeftRadius: 0,
+          borderTopRightRadius: 0,
+          top: -6,
+          left: -6,
         }}
       >
-        {price ? `$${price}` : price}
-      </Text>
-      <Text
+        <Text
+          style={{
+            fontWeight: "700",
+            fontSize: 16,
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            color: "black",
+          }}
+        >
+          {price ? `$${price}` : price}
+        </Text>
+      </View>
+
+      <View
         style={{
           position: "absolute",
-          bottom: 6,
-          fontSize: 10,
-          left: 50,
-          right: 50,
+          bottom: 0,
+          fontSize: 16,
+          height: 30,
+          width: 300,
+          borderRadius: 100,
+          borderTopRightRadius: 0,
+          borderTopLeftRadius: 0,
+          backgroundColor: "#34495e",
         }}
       >
-        {address}
-      </Text>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Entypo name="location-pin" size={24} color="#3498db" />
+          <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
+            {address}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
