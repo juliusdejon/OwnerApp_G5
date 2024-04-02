@@ -83,7 +83,6 @@ function ManageListing(props) {
         longitude: location.coords.longitude,
       });
       const c = res[0];
-      console.log(c);
       onChangeAddress(
         `${c.streetNumber} ${c.street} ${c.city} ${c.postalCode}`
       );

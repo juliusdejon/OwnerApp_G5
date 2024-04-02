@@ -1,6 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  getDocs,
+  query,
+  where,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -33,4 +40,26 @@ const createRentalListing = async (vehicle) => {
   }
 };
 
-export { db, auth, signInWithEmailAndPassword, signOut, createRentalListing };
+const getRentalListingsByEmail = async (email) => {
+  const q = query(collection(db, "rentals"), where("ownerEmail", "==", email));
+  const results = [];
+  try {
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      results.push(doc.data());
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return results;
+};
+
+export {
+  db,
+  auth,
+  signInWithEmailAndPassword,
+  signOut,
+  createRentalListing,
+  getRentalListingsByEmail,
+};
