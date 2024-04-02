@@ -83,10 +83,12 @@ function ManageListing() {
           onChangeText={onChangePhoto}
           value={photo}
         /> */}
-        <Image
-          source={{ uri: photo }}
-          style={{ height: 150, width: 150, objectFit: "contain" }}
-        />
+        {photo.length > 0 && (
+          <Image
+            source={{ uri: photo }}
+            style={{ height: 150, width: 150, objectFit: "contain" }}
+          />
+        )}
       </View>
       <View>
         <Text style={styles.label}>Name</Text>
@@ -102,10 +104,10 @@ function ManageListing() {
         style={{
           flex: 1,
           flexDirection: "row",
-          justifyContent: "space-between",
+          gap: 10,
         }}
       >
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={styles.label}>Seating</Text>
           <TextInput
             style={styles.input}
@@ -113,7 +115,7 @@ function ManageListing() {
             value={seating}
           />
         </View>
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={styles.label}>MSRP</Text>
           <TextInput
             style={styles.input}
@@ -121,7 +123,7 @@ function ManageListing() {
             value={msrp}
           />
         </View>
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={styles.label}>Drive Train</Text>
           <TextInput
             style={styles.input}
