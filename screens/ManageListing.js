@@ -85,15 +85,20 @@ function ManageListing() {
 
   return (
     <ScrollView
-      style={{ flex: 1, padding: 16, gap: 2, backgroundColor: "white" }}
+      style={{
+        flex: 1,
+        padding: 16,
+        gap: 2,
+      }}
     >
+      <Text style={styles.label}>Search for existing vehicle</Text>
       <Search
         value={search}
         data={vehicles}
         onSelectItem={onSelectSuggestion}
         onChangeText={onSearch}
       />
-      <View style={{ marginBottom: 6 }} />
+      <View style={{ marginBottom: 24 }} />
       <View style={{ flex: 1, alignItems: "center" }}>
         {/* <Text>Photo</Text> */}
         {/* <TextInput
@@ -104,7 +109,7 @@ function ManageListing() {
         {photo.length > 0 && (
           <Image
             source={{ uri: photo }}
-            style={{ height: 150, width: 150, objectFit: "contain" }}
+            style={{ height: 150, width: 200, objectFit: "contain" }}
           />
         )}
       </View>

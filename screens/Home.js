@@ -4,7 +4,8 @@ import Card from "../components/Card";
 
 const avatar = require("../assets/memoji.png");
 
-function HomeScreen() {
+function HomeScreen(props) {
+  const { user } = props;
   return (
     <View
       style={{
@@ -26,7 +27,7 @@ function HomeScreen() {
           <Text style={{ fontSize: 16, fontWeight: "600" }}>
             Welcome back 👋
           </Text>
-          <Text style={{ fontSize: 28, fontWeight: "700" }}>Julius Dejon</Text>
+          <Text style={{ fontSize: 28, fontWeight: "700" }}>{user}</Text>
         </View>
       </View>
       <View style={{ paddingTop: 20 }}>

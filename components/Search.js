@@ -13,7 +13,7 @@ function Search(props) {
   const { value, onChangeText, data, onSelectItem } = props;
 
   return (
-    <View>
+    <View style={{}}>
       <View style={styles.container}>
         <AntDesign
           name="search1"
@@ -29,7 +29,7 @@ function Search(props) {
         />
       </View>
       {data.length > 0 && (
-        <ScrollView style={{ maxHeight: 120 }}>
+        <ScrollView style={{ maxHeight: 120, backgroundColor: "white" }}>
           {data.map((d) => (
             <TouchableOpacity
               key={d.display_name}
@@ -38,7 +38,7 @@ function Search(props) {
               <View
                 style={{
                   paddingHorizontal: 12,
-                  paddingVertical: 2,
+                  paddingVertical: 4,
                   borderColor: "#ccc",
                   borderWidth: 0.5,
                   borderTopWidth: 0,
@@ -62,6 +62,7 @@ function Search(props) {
 }
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flexDirection: "row",
     borderWidth: 1,
     borderRadius: 10,
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     height: 38,
     paddingHorizontal: 10,
     width: "100%",
+    marginTop: 6,
   },
   icon: {
     marginRight: 10,
