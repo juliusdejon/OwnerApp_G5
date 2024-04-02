@@ -6,16 +6,19 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
+  Image,
 } from "react-native";
 
-function HomeScreen() {
+import Search from "../components/Search";
+
+function ManageListing() {
+  const [search, setSearch] = useState("");
   const [name, onChangeName] = useState("");
   const [photo, onChangePhoto] = useState("");
   const [seating, onChangeSeating] = useState("");
-  const [type, onChangeType] = useState("");
-  const [color, onChangeColor] = useState("");
+  const [msrp, onChangeMsrp] = useState("");
+  const [driveTrain, onChangeDriveTrain] = useState("");
   const [licensePlate, onChangeLicensePlate] = useState("");
   const [address, onChangeAddress] = useState("");
   const [price, onChangePrice] = useState("");
@@ -32,8 +35,9 @@ function HomeScreen() {
         "https://juliusdejon.github.io/gbc.github.io/vehicles.json"
       );
       const results = await response.json();
+      console.log(results);
       const nextResults = results.data.filter((data) => {
-        return data.name.includes(value);
+        return data.make.includes(value);
       });
 
       setVehicles(nextResults);
@@ -43,57 +47,55 @@ function HomeScreen() {
   };
 
   const onSelectSuggestion = (vehicle) => {
-    onChangeName(vehicle.name);
-    onChangePhoto(vehicle.photo);
-    onChangeSeating(vehicle.seating_capacity);
-    onChangeType(vehicle.type);
-    onChangeColor(vehicle.color);
-  };
-
-  const Item = (item) => {
-    return (
-      <TouchableOpacity onPress={() => onSelectSuggestion(item.item)}>
-        <View style={styles.item}>
-          <Text style={styles.title}>{item.item.name}</Text>
-        </View>
-      </TouchableOpacity>
-    );
+    onChangeName(`${vehicle.make} ${vehicle.model} ${vehicle.trim}`);
+    onChangePhoto(vehicle.images[0].url_full);
+    onChangeSeating(`${vehicle.seats_max}`);
+    onChangeDriveTrain(vehicle.drivetrain);
+    onChangeMsrp(`${vehicle.msrp}`);
+    setVehicles([]);
+    setSearch("");
   };
 
   const onSearch = (value) => {
-    onChangeName(value);
-
-    fetchVehicles(value);
+    setSearch(value);
+    if (value.length == 0) {
+      setVehicles([]);
+    } else {
+      fetchVehicles(value);
+    }
   };
 
   return (
-    <ScrollView style={{ flex: 1, padding: 16, gap: 2 }}>
-      <Text style={{ marginBottom: 16 }}>Create Listing</Text>
+    <ScrollView
+      style={{ flex: 1, padding: 16, gap: 2, backgroundColor: "white" }}
+    >
+      <Search
+        value={search}
+        data={vehicles}
+        onSelectItem={onSelectSuggestion}
+        onChangeText={onSearch}
+      />
+      <View style={{ marginBottom: 6 }} />
+      <View style={{ flex: 1, alignItems: "center" }}>
+        {/* <Text>Photo</Text> */}
+        {/* <TextInput
+          style={styles.input}
+          onChangeText={onChangePhoto}
+          value={photo}
+        /> */}
+        <Image
+          source={{ uri: photo }}
+          style={{ height: 200, width: 200, objectFit: "contain" }}
+        />
+      </View>
       <View>
         <Text>Name</Text>
         <TextInput
           style={styles.input}
-          returnKeyType="search"
-          onChangeText={onSearch}
+          onChangeText={onChangeName}
           value={name}
         />
-        {/* Todo  Styling*/}
-        <View style={{ paddingHorizontal: 16 }}>
-          <FlatList
-            data={vehicles}
-            renderItem={({ item }) => <Item item={item} />}
-            keyExtractor={(item, index) => `${item.name}-${index}`}
-          />
-        </View>
-      </View>
-      {/* TODO: Add Expo camera? */}
-      <View>
-        <Text>Photo</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePhoto}
-          value={photo}
-        />
+        <View style={{ paddingHorizontal: 16 }}></View>
       </View>
 
       <View>
@@ -106,20 +108,20 @@ function HomeScreen() {
       </View>
 
       <View>
-        <Text>Type</Text>
+        <Text>Drive Train</Text>
         <TextInput
           style={styles.input}
-          onChangeText={onChangeType}
-          value={type}
+          onChangeText={onChangeDriveTrain}
+          value={driveTrain}
         />
       </View>
 
       <View>
-        <Text>Color</Text>
+        <Text>MSRP</Text>
         <TextInput
           style={styles.input}
-          onChangeText={onChangeColor}
-          value={color}
+          onChangeText={onChangeMsrp}
+          value={msrp}
         />
       </View>
 
@@ -166,4 +168,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ManageListing;

@@ -1,21 +1,8 @@
 import { SafeAreaView, StyleSheet, View, Text, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-const avatar = require("../assets/memoji.png");
+import Card from "../components/Card";
 
-function Card() {
-  return (
-    <View
-      style={{
-        width: "100%",
-        height: 200,
-        marginTop: 10,
-        borderRadius: 20,
-        borderWidth: 0.5,
-        borderColor: "#cecece",
-      }}
-    ></View>
-  );
-}
+const avatar = require("../assets/memoji.png");
 
 function HomeScreen() {
   return (
