@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-function ListingScreen() {
+function HomeScreen() {
   const [name, onChangeName] = useState("");
   const [photo, onChangePhoto] = useState("");
   const [seating, onChangeSeating] = useState("");
@@ -67,8 +67,8 @@ function ListingScreen() {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16, gap: 2 }}>
-      <Text style={{ marginBottom: 16 }}>ListingScreen</Text>
+    <ScrollView style={{ flex: 1, padding: 16, gap: 2 }}>
+      <Text style={{ marginBottom: 16 }}>Create Listing</Text>
       <View>
         <Text>Name</Text>
         <TextInput
@@ -150,7 +150,7 @@ function ListingScreen() {
         />
       </View>
       <Button onPress={onCreateListing} title="Create Listing" />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -166,4 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingScreen;
+export default HomeScreen;
