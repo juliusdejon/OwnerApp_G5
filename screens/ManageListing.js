@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
-  Button,
   View,
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
   Image,
 } from "react-native";
 
+import * as Location from "expo-location";
+
 import Search from "../components/Search";
+import Button from "../components/Button";
 
 function ManageListing() {
   const [search, setSearch] = useState("");
@@ -29,13 +30,30 @@ function ManageListing() {
 
   const [vehicles, setVehicles] = useState([]);
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const res = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      const c = res[0];
+      onChangeAddress(`${c.name}, ${c.city}, ${c.country}`);
+    })();
+  }, []);
+
   const fetchVehicles = async (value) => {
     try {
       const response = await fetch(
         "https://juliusdejon.github.io/gbc.github.io/vehicles.json"
       );
       const results = await response.json();
-      console.log(results);
+      // find by vehicle make
       const nextResults = results.data.filter((data) => {
         return data.make.includes(value);
       });
@@ -159,7 +177,7 @@ function ManageListing() {
           value={price}
         />
       </View>
-      <Button onPress={onCreateListing} title="Create Listing" />
+      <Button onPress={onCreateListing} label="Create Listing" />
       <View style={{ paddingBottom: 24 }} />
     </ScrollView>
   );
