@@ -85,11 +85,11 @@ function ManageListing() {
         /> */}
         <Image
           source={{ uri: photo }}
-          style={{ height: 200, width: 200, objectFit: "contain" }}
+          style={{ height: 150, width: 150, objectFit: "contain" }}
         />
       </View>
       <View>
-        <Text>Name</Text>
+        <Text style={styles.label}>Name</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangeName}
@@ -98,35 +98,41 @@ function ManageListing() {
         <View style={{ paddingHorizontal: 16 }}></View>
       </View>
 
-      <View>
-        <Text>Seating</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeSeating}
-          value={seating}
-        />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View>
+          <Text style={styles.label}>Seating</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeSeating}
+            value={seating}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>MSRP</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeMsrp}
+            value={msrp}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>Drive Train</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeDriveTrain}
+            value={driveTrain}
+          />
+        </View>
       </View>
 
       <View>
-        <Text>Drive Train</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeDriveTrain}
-          value={driveTrain}
-        />
-      </View>
-
-      <View>
-        <Text>MSRP</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeMsrp}
-          value={msrp}
-        />
-      </View>
-
-      <View>
-        <Text>License Plate</Text>
+        <Text style={styles.label}>License Plate</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangeLicensePlate}
@@ -135,7 +141,7 @@ function ManageListing() {
       </View>
 
       <View>
-        <Text>Pickup location address</Text>
+        <Text style={styles.label}>Pickup location address</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangeAddress}
@@ -144,7 +150,7 @@ function ManageListing() {
       </View>
 
       <View>
-        <Text>Rental Price</Text>
+        <Text style={styles.label}>Rental Price</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangePrice}
@@ -152,15 +158,25 @@ function ManageListing() {
         />
       </View>
       <Button onPress={onCreateListing} title="Create Listing" />
+      <View style={{ paddingBottom: 24 }} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  label: {
+    color: "#333333",
+    fontWeight: "600",
+  },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+    height: 38,
+    marginBottom: 18,
+    marginTop: 6,
+    borderWidth: 2,
+    borderColor: "#dedede",
+    borderRadius: 10,
+    color: "#333333",
+    backgroundColor: "#F9FAFB",
     padding: 10,
   },
   title: {

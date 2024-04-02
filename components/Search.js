@@ -17,7 +17,7 @@ function Search(props) {
       <View style={styles.container}>
         <AntDesign
           name="search1"
-          size={24}
+          size={16}
           color={"#ccc"}
           style={styles.icon}
         />
@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     borderColor: "#ccc",
     paddingVertical: 10,
-    height: 45,
+    height: 38,
     paddingHorizontal: 10,
     width: "100%",
   },
