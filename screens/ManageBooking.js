@@ -180,7 +180,7 @@ useEffect(() => {
                   bookingCode = {item.confirmationCode}
                   photo={item.vehicleDetails.image}
                   price={item.price}
-                  address={item.status}
+                  status={item.status}
                   accept={() => acceptBooking(item.id)}
                   decline={() => declineBooking(item.id)}
                 />

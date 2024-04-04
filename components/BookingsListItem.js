@@ -8,12 +8,12 @@ import {
 } from "react-native";
 
 const BookingsListItem = (props) => {
-  const { bookingCode, photo, price, address, goToDetails, accept, decline } =
+  const { bookingCode, photo, price, status, goToDetails, accept, decline } =
     props;
 
   let addressBackgroundColor;
 
-  switch (address) {
+  switch (status) {
     case "Accepted":
       addressBackgroundColor = "green";
       break;
@@ -68,7 +68,8 @@ const BookingsListItem = (props) => {
             </Text>
           </View>
 
-          <View
+          {/* if bookingCode is not equal to empty array, show Code in UI */}
+          {bookingCode !== "" && <View
             style={{
               position: "absolute",
               color: "black",
@@ -91,7 +92,7 @@ const BookingsListItem = (props) => {
             >
               {bookingCode}
             </Text>
-          </View>
+          </View>}
 
           <View
             style={{
@@ -117,7 +118,7 @@ const BookingsListItem = (props) => {
               <Text
                 style={{ fontSize: 16, color: "white", fontWeight: "bold" }}
               >
-                {address}
+                {status}
               </Text>
             </View>
           </View>
