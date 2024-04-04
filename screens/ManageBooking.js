@@ -52,8 +52,7 @@ const ManageBookingList = ({ navigation, user }) => {
     renterName,
     price,
     licensePlate,
-    pickupLat,
-    pickupLng
+    pickupLocation,
   ) => {
     navigation.navigate("Booking Details", {
       id: id,
@@ -66,8 +65,7 @@ const ManageBookingList = ({ navigation, user }) => {
       renterName: renterName,
       price: price,
       licensePlate: licensePlate,
-      pickupLat: pickupLat,
-      pickupLng: pickupLng,
+      pickupLocation
     });
   };
 
@@ -176,8 +174,7 @@ useEffect(() => {
                       item.userEmail,
                       item.price,
                       item.licensePlate,
-                      item.pickupLocation.latitude,
-                      item.pickupLocation.longitude
+                      item.address
                     );
                   }}
                   bookingCode = {item.confirmationCode}

@@ -1,4 +1,4 @@
-import { Button, Image, Text, View } from "react-native";
+import { Button, Image, ScrollView, Text, View } from "react-native";
 const ManageBookingDetails = ({ navigation, route }) => {
   const {
     id,
@@ -11,12 +11,11 @@ const ManageBookingDetails = ({ navigation, route }) => {
     bookingDate,
     bookingStatus,
     bookingConfirmationCode,
-    pickupLat,
-    pickupLng,
+    pickupLocation,
   } = route.params;
 
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <View
           style={{
@@ -43,7 +42,7 @@ const ManageBookingDetails = ({ navigation, route }) => {
           <Text>License Plate: {licensePlate}</Text>
           <Text>Booked Date: {bookingDate}</Text>
           <Text>
-            Pick Up Location: {pickupLat}, {pickupLng}
+            Pick Up Location: {pickupLocation}
           </Text>
           <Text>${price}/day</Text>
           <Text>Status: {bookingStatus}</Text>
@@ -102,7 +101,7 @@ const ManageBookingDetails = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default ManageBookingDetails;
