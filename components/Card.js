@@ -2,7 +2,7 @@ import { View, Image, Text } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 function Card(props) {
-  const { photo, price, address } = props;
+  const { photo, price, address, name, licensePlate } = props;
   return (
     <View
       style={{
@@ -15,18 +15,19 @@ function Card(props) {
         marginHorizontal: 10,
       }}
     >
-      <Image
-        source={{ uri: photo }}
-        style={{ width: "100%", height: "100%", objectFit: "contain" }}
-      />
+      {photo.length > 0 && (
+        <Image
+          source={{ uri: photo }}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      )}
+      <Text>{name}</Text>
       <View
         style={{
           position: "absolute",
           color: "black",
           borderRadius: 30,
-          backgroundColor: "#f1c40f",
-          borderBottomLeftRadius: 0,
-          borderTopRightRadius: 0,
+          backgroundColor: "#FFD500",
           top: -6,
           left: -6,
         }}
@@ -43,7 +44,54 @@ function Card(props) {
           {price ? `$${price}` : price}
         </Text>
       </View>
-
+      <View
+        style={{
+          position: "absolute",
+          color: "black",
+          backgroundColor: "#f1c40f",
+          bottom: 70,
+          left: 40,
+          transform: [{ rotate: "5deg" }],
+        }}
+      >
+        <Text
+          style={{
+            fontWeight: "700",
+            fontSize: 8,
+            paddingHorizontal: 5,
+            color: "black",
+          }}
+        >
+          {licensePlate}
+        </Text>
+      </View>
+      <View
+        style={{
+          position: "absolute",
+          color: "black",
+          borderRadius: 30,
+          backgroundColor: "#A6051A",
+          borderBottomLeftRadius: 0,
+          borderTopRightRadius: 0,
+          top: 6,
+          right: 6,
+          width: 190,
+          alignItems: "center",
+        }}
+      >
+        <Text
+          numberOfLines={1}
+          style={{
+            fontWeight: "700",
+            fontSize: 15,
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            color: "white",
+          }}
+        >
+          {name}
+        </Text>
+      </View>
       <View
         style={{
           position: "absolute",
@@ -54,7 +102,7 @@ function Card(props) {
           borderRadius: 100,
           borderTopRightRadius: 0,
           borderTopLeftRadius: 0,
-          backgroundColor: "#34495e",
+          backgroundColor: "black",
         }}
       >
         <View
@@ -65,7 +113,7 @@ function Card(props) {
             flexDirection: "row",
           }}
         >
-          <Entypo name="location-pin" size={24} color="#3498db" />
+          <Entypo name="location-pin" size={24} color="white" />
           <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
             {address}
           </Text>
