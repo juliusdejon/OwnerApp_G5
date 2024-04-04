@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useState } from "react";
 const SignIn = (props) => {
@@ -13,6 +14,18 @@ const SignIn = (props) => {
 
   return (
     <View style={styles.outerContainer}>
+      <View style={ {backgroundColor: 'teal', borderRadius: 5, padding: 10,} } >
+        <Image
+          style={{
+            height: 200,
+            width: 400,
+            objectFit: "contain",
+            borderRadius: 30,
+          }}
+          source={require("../assets/companyLogo.png")}
+        />
+      </View>
+
       <View style={styles.innerContainer}>
         <Text style={{ fontSize: 30, fontWeight: "bold" }}>Sign In</Text>
         <TextInput
@@ -45,15 +58,14 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 
   innerContainer: {
     width: "90%",
     height: "50%",
-    backgroundColor: "#C6EBC5",
+    backgroundColor: "#f1c40f",
     borderRadius: 10,
     padding: 20,
     justifyContent: "space-evenly",
