@@ -1,12 +1,42 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 function ProfileScreen(props) {
   const { onLogout, user } = props;
   return (
-    <View style={styles.logoutContainer}>
-      <Text style={styles.welcomeText}>Welcome, {user}</Text>
-      <TouchableOpacity style={styles.button} onPress={onLogout}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          width: "100%",
+          backgroundColor: "#34495e",
+        }}
+      ></View>
+
+      <View
+        style={{
+          flex: 3,
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          paddingTop: 20,
+          bottom: 120,
+        }}
+      >
+        <Image
+          style={styles.imageStyle}
+          source={require("../assets/memoji.png")}
+        />
+        <Text style={styles.welcomeText}>Owner</Text>
+        <Text>{user}</Text>
+        <TouchableOpacity style={styles.button} onPress={onLogout}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -16,19 +46,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  logoutContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 15,
-    backgroundColor: "beige",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderWidth: 2,
-    borderColor: "black",
-  },
   welcomeText: {
-    fontSize: 20,
+    fontSize: 27,
     fontWeight: "bold",
+    marginVertical: 10,
   },
 
   button: {
@@ -36,10 +57,21 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     borderRadius: 10,
     alignItems: "center",
+    marginVertical: 10,
   },
   buttonText: {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+    borderColor: "black",
+    borderRadius: 100,
+    backgroundColor: "#97E7E1",
+    marginVertical: 10,
+    borderColor: "black",
+    borderWidth: 0.5,
   },
 });

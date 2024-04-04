@@ -44,7 +44,7 @@ export default function App() {
         alert(`Sorry, no user is logged in.`);
       } else {
         await signOut(auth);
-        alert(`Logout Complete!`);
+        alert(`Logged Out!`);
         setUserLoggedIn(false);
       }
     } catch (err) {
@@ -85,6 +85,7 @@ export default function App() {
                 tabBarIcon: ({ color, size }) => (
                   <AntDesign name="checkcircleo" size={size} color={color} />
                 ),
+                headerShown: false,
               }}
             />
 
