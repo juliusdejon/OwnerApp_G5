@@ -88,7 +88,7 @@ function HomeScreen(props) {
         <Text style={{ fontSize: 24, fontWeight: "800" }}>My Bookings</Text>
         <ScrollView horizontal={true} contentContainerStyle={{}}>
           {myBookings.length === 0 && (
-            <Text style={{ paddingVertical: 80 }}>Empty Listings</Text>
+            <Text style={{ paddingVertical: 80 }}>Empty Bookings</Text>
           )}
           {myBookings.map((booking, index) => (
             <BookingCard
