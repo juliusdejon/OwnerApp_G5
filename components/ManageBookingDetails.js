@@ -86,7 +86,7 @@ const ManageBookingDetails = ({ navigation, route }) => {
                 borderRadius: 25,
                 borderWidth: 1,
               }}
-              source={{ uri: renterPhoto }}
+              source={require('../assets/rental-memoji.jpeg')}
             />
             <View
               style={{
