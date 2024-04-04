@@ -8,7 +8,23 @@ import {
 } from "react-native";
 
 const BookingsListItem = (props) => {
-  const { bookingCode, photo, price, address, goToDetails, accept, decline } = props;
+  const { bookingCode, photo, price, address, goToDetails, accept, decline } =
+    props;
+
+  let addressBackgroundColor;
+
+  switch (address) {
+    case "Accepted":
+      addressBackgroundColor = "green";
+      break;
+    case "Declined":
+      addressBackgroundColor = "red";
+      break;
+    default:
+      addressBackgroundColor = "#34495e"; // Default background color
+      break;
+  }
+
   return (
     <View>
       <TouchableOpacity onPress={goToDetails}>
@@ -87,7 +103,7 @@ const BookingsListItem = (props) => {
               borderRadius: 100,
               borderTopRightRadius: 0,
               borderTopLeftRadius: 0,
-              backgroundColor: "#34495e",
+              backgroundColor: addressBackgroundColor,
             }}
           >
             <View
