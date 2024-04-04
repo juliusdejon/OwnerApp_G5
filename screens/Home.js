@@ -2,7 +2,7 @@ import { ScrollView, View, Text, Image } from "react-native";
 import Card from "../components/Card";
 import BookingCard from "../components/BookingCard";
 import React, { useState, useEffect } from "react";
-import { query, where, collection } from "firebase/firestore";
+import { query, where, onSnapshot, collection } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 const avatar = require("../assets/memoji.png");
 
@@ -12,7 +12,7 @@ function HomeScreen(props) {
   const [myBookings, setBookings] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, "book"), where("userEmail", "==", user));
+    const q = query(collection(db, "book"), where("ownerEmail", "==", user));
     const unsubscribeBookings = onSnapshot(q, (snapshot) => {
       const updated = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -21,11 +21,11 @@ function HomeScreen(props) {
       setBookings(updated);
     });
 
-    const qL = query(
+    const ql = query(
       collection(db, "rentals"),
       where("ownerEmail", "==", user)
     );
-    const unsubscribeListings = onSnapshot(qL, (snapshot) => {
+    const unsubscribeListings = onSnapshot(ql, (snapshot) => {
       const updated = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -38,8 +38,20 @@ function HomeScreen(props) {
       unsubscribeListings();
       unsubscribeBookings();
     };
-  }, []);
+  }, [user]);
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const listings = await getRentalListingsByEmail(user);
+  //     setMyListings(listings);
+  //   }
+  //   async function fetchBookings() {
+  //     const bookings = await getBookingsOfOwner(user);
+  //     setBookings(bookings);
+  //   }
+  //   fetchData();
+  //   fetchBookings();
+  // }, [user]);
   return (
     <ScrollView
       style={{
