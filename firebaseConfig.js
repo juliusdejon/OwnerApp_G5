@@ -55,6 +55,21 @@ const getRentalListingsByEmail = async (email) => {
   return results;
 };
 
+const getBookingsOfOwner = async (email) => {
+  const q = query(collection(db, "book"), where("ownerEmail", "==", email));
+  const results = [];
+  try {
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      results.push({ id: doc.id, ...doc.data() });
+    });
+  } catch (err) {
+    console.error(`Error fetching bookings: ${err}`);
+  }
+  return results;
+};
+
 export {
   db,
   auth,
@@ -62,4 +77,5 @@ export {
   signOut,
   createRentalListing,
   getRentalListingsByEmail,
+  getBookingsOfOwner,
 };
