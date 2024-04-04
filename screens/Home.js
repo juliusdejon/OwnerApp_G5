@@ -1,8 +1,8 @@
-import { ScrollView, View, Text, Image } from "react-native";
+import { ScrollView, View, Text, Image, LogBox } from "react-native";
 import Card from "../components/Card";
 import BookingCard from "../components/BookingCard";
 import React, { useState, useEffect } from "react";
-import { query, where, onSnapshot, collection } from "firebase/firestore";
+import { query, where, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 const avatar = require("../assets/memoji.png");
 
@@ -30,6 +30,7 @@ function HomeScreen(props) {
         id: doc.id,
         ...doc.data(),
       }));
+      console.log(updated);
       setMyListings(updated);
     });
 
@@ -40,18 +41,6 @@ function HomeScreen(props) {
     };
   }, [user]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const listings = await getRentalListingsByEmail(user);
-  //     setMyListings(listings);
-  //   }
-  //   async function fetchBookings() {
-  //     const bookings = await getBookingsOfOwner(user);
-  //     setBookings(bookings);
-  //   }
-  //   fetchData();
-  //   fetchBookings();
-  // }, [user]);
   return (
     <ScrollView
       style={{
