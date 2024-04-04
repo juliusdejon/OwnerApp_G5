@@ -8,7 +8,14 @@ import ProfileScreen from "./screens/Profile";
 import { AntDesign } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { auth, signInWithEmailAndPassword, signOut } from "./firebaseConfig";
+import {
+  auth,
+  db,
+  signInWithEmailAndPassword,
+  signOut,
+} from "./firebaseConfig";
+
+import { getDocs, query, where, collection } from "firebase/firestore";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,11 +33,29 @@ export default function App() {
         emailFromUI,
         passwordFromUI
       );
-      //who is the current user
+      if (userCredential._tokenResponse.registered) {
+        const q = query(
+          collection(db, "users"),
+          where("email", "==", emailFromUI),
+          where("type", "==", "owner")
+        );
+        try {
+          const querySnapshot = await getDocs(q);
+          const userData = querySnapshot.docs.map((doc) => doc.data());
+          if (userData.length > 0) {
+            alert(`Login Success! ${userCredential.user.email}`);
+            setUserLoggedIn(true);
+            setUser(userCredential.user.email);
+          } else {
+            throw new Error("Invalid Role");
+          }
+        } catch (error) {
+          alert(error.message);
+          console.log(error);
+        }
+      }
       // console.log(userCredential.user.email);
-      // alert(`Login Success! ${userCredential.user.email}`);
-      setUserLoggedIn(true);
-      setUser(userCredential.user.email);
+      //who is the current user
     } catch (err) {
       alert("Invalid Credentials");
       console.log(err);
