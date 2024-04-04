@@ -11,20 +11,24 @@ import { db } from "../firebaseConfig";
 import {
   collection,
   getDocs,
-  deleteDoc,
+  query,
   doc,
   updateDoc,
+  where,
+  onSnapshot
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import NoBookings from "../components/NoBookings";
 import BookingsListItem from "../components/BookingsListItem";
 
-function ManageBooking() {
+function ManageBooking(p) {
   const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Booking Requests" component={ManageBookingList} />
+      <Stack.Screen name="Booking Requests">
+        {(props) => <ManageBookingList user={p.user} {...props} />}
+      </Stack.Screen>
       <Stack.Screen name="Booking Details" component={ManageBookingDetails} />
     </Stack.Navigator>
   );
@@ -32,33 +36,33 @@ function ManageBooking() {
 export default ManageBooking;
 
 //Manage Booking List UI
-const ManageBookingList = ({ navigation }) => {
+const ManageBookingList = ({ navigation, user }) => {
   const [bookingArray, setBookingArray] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
 
   //Get documents from Firebase
-  const fetchDataFromDB = async () => {
-    console.log(`Fetching...`);
+  // const fetchDataFromDB = async () => {
+  //   console.log(`Fetching...`);
 
-    try {
-      const bookingCollectionRef = collection(db, "book");
+  //   try {
+  //     const bookingCollectionRef = collection(db, "book");
 
-      // Fetch all documents from the collection
-      const querySnapshot = await getDocs(bookingCollectionRef);
-      const fetchedBookings = [];
+  //     // Fetch all documents from the collection
+  //     const querySnapshot = await getDocs(bookingCollectionRef);
+  //     const fetchedBookings = [];
 
-      querySnapshot.forEach((doc) => {
-        fetchedBookings.push({ id: doc.id, ...doc.data() });
-      });
+  //     querySnapshot.forEach((doc) => {
+  //       fetchedBookings.push({ id: doc.id, ...doc.data() });
+  //     });
 
-      // Update the state with the fetched bookings
-      setBookingArray(fetchedBookings);
-      setIsLoading(false);
-      console.log(`bookingArray: ${JSON.stringify(bookingArray)}`);
-    } catch (err) {
-      console.error(`Error fetching videos: ${err}`);
-    }
-  };
+  //     // Update the state with the fetched bookings
+  //     setBookingArray(fetchedBookings);
+  //     setIsLoading(false);
+  //     console.log(`bookingArray: ${JSON.stringify(bookingArray)}`);
+  //   } catch (err) {
+  //     console.error(`Error fetching videos: ${err}`);
+  //   }
+  // };
 
   //Navigate to Booking Details Handler
   const goToDetails = (
@@ -115,7 +119,7 @@ const ManageBookingList = ({ navigation }) => {
       // Display success message
       console.log("Document written with ID: ", id);
       alert(`Booking Accepted`);
-      fetchDataFromDB();
+      // fetchDataFromDB();
     } catch (err) {
       console.log(err);
     }
@@ -137,15 +141,33 @@ const ManageBookingList = ({ navigation }) => {
       // Display success message
       console.log("Document written with ID: ", id);
       alert(`Booking Declined`);
-      fetchDataFromDB();
+      // fetchDataFromDB();
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    fetchDataFromDB();
-  }, []);
+
+
+useEffect(() => {
+  const q = query(collection(db, "book"), where("ownerEmail", "==", user));
+  const unsubscribeBookings = onSnapshot(q, (snapshot) => {
+    const updated = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setBookingArray(updated);
+    setIsLoading(false);
+  });
+}, []);
+  
+
+
+  
+
+  // useEffect(() => {
+  //   fetchDataFromDB();
+  // }, []);
   return (
     <View
       style={{
@@ -182,6 +204,7 @@ const ManageBookingList = ({ navigation }) => {
                       item.pickupLocation.longitude
                     );
                   }}
+                  bookingCode = {item.confirmationCode}
                   photo={item.vehicleDetails.image}
                   price={item.price}
                   address={item.status}
@@ -193,7 +216,7 @@ const ManageBookingList = ({ navigation }) => {
           />
         )}
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           padding: 10,
           backgroundColor: "lightblue",
@@ -206,7 +229,7 @@ const ManageBookingList = ({ navigation }) => {
         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           Refresh
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

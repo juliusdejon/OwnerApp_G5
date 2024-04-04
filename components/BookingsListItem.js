@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 const BookingsListItem = (props) => {
-  const { photo, price, address, goToDetails, accept, decline } = props;
+  const { bookingCode, photo, price, address, goToDetails, accept, decline } = props;
   return (
     <View>
       <TouchableOpacity onPress={goToDetails}>
@@ -55,6 +55,31 @@ const BookingsListItem = (props) => {
           <View
             style={{
               position: "absolute",
+              color: "black",
+              borderRadius: 30,
+              backgroundColor: "#f1c40f",
+              borderBottomLeftRadius: 0,
+              borderTopRightRadius: 0,
+              top: -6,
+              right: -6,
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "700",
+                fontSize: 16,
+                paddingHorizontal: 20,
+                paddingVertical: 5,
+                color: "black",
+              }}
+            >
+              {bookingCode}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              position: "absolute",
               bottom: 0,
               fontSize: 16,
               height: 30,
@@ -83,8 +108,6 @@ const BookingsListItem = (props) => {
         </View>
       </TouchableOpacity>
 
-      
-
       <View
         style={{
           flex: 1,
@@ -99,8 +122,8 @@ const BookingsListItem = (props) => {
             backgroundColor: "green",
             borderRadius: 10,
             alignItems: "center",
-                  }}
-                  onPress={accept}
+          }}
+          onPress={accept}
         >
           <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
             Accept
@@ -113,8 +136,8 @@ const BookingsListItem = (props) => {
             backgroundColor: "red",
             borderRadius: 10,
             alignItems: "center",
-                  }}
-                  onPress={decline}
+          }}
+          onPress={decline}
         >
           <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
             Decline

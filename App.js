@@ -80,14 +80,15 @@ export default function App() {
 
             <Tab.Screen
               name="Manage Booking"
-              component={ManageBooking}
               options={{
                 tabBarIcon: ({ color, size }) => (
                   <AntDesign name="checkcircleo" size={size} color={color} />
                 ),
                 headerShown: false,
               }}
-            />
+            >
+              {() => <ManageBooking user={user} />}
+            </Tab.Screen>
 
             <Tab.Screen
               name="Profile"
