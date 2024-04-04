@@ -42,7 +42,9 @@ const ManageBookingDetails = ({ navigation, route }) => {
           <Text>Vehicle: {vehicleMakeAndModel}</Text>
           <Text>License Plate: {licensePlate}</Text>
           <Text>Booked Date: {bookingDate}</Text>
-          <Text>Pick Up Location: {pickupLat}, {pickupLng}</Text>
+          <Text>
+            Pick Up Location: {pickupLat}, {pickupLng}
+          </Text>
           <Text>${price}/day</Text>
           <Text>Status: {bookingStatus}</Text>
           <Image
@@ -79,9 +81,9 @@ const ManageBookingDetails = ({ navigation, route }) => {
           <View style={{ flexDirection: "row" }}>
             <Image
               style={{
-                height: 200,
-                width: 200,
-                borderRadius: 20,
+                height: 150,
+                width: 150,
+                borderRadius: 25,
                 borderWidth: 1,
               }}
               source={{ uri: renterPhoto }}

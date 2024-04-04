@@ -72,10 +72,8 @@ const ManageBookingList = ({ navigation }) => {
     renterName,
     price,
     licensePlate,
-    acceptBooking,
-    declineBooking,
     pickupLat,
-    pickupLng,
+    pickupLng
   ) => {
     navigation.navigate("Booking Details", {
       id: id,
@@ -88,8 +86,6 @@ const ManageBookingList = ({ navigation }) => {
       renterName: renterName,
       price: price,
       licensePlate: licensePlate,
-      acceptBooking: acceptBooking,
-      declineBooking: declineBooking,
       pickupLat: pickupLat,
       pickupLng: pickupLng,
     });
@@ -177,13 +173,13 @@ const ManageBookingList = ({ navigation }) => {
                       item.vehicleDetails.image,
                       item.confirmationCode,
                       item.status,
-                      item.bookingDate, //booking Date
+                      item.bookingDate,
                       item.renterPhoto, //renterPhoto
-                      item.userEmail, //renterName
+                      item.userEmail,
                       item.price,
                       item.licensePlate,
                       item.pickupLocation.latitude,
-                      item.pickupLocation.longitude,
+                      item.pickupLocation.longitude
                     );
                   }}
                   photo={item.vehicleDetails.image}
