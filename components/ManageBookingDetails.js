@@ -3,6 +3,7 @@ const ManageBookingDetails = ({ navigation, route }) => {
   const {
     id,
     vehicleMakeAndModel,
+    vehiclePhoto,
     licensePlate,
     price,
     renterName,
@@ -10,6 +11,8 @@ const ManageBookingDetails = ({ navigation, route }) => {
     bookingDate,
     bookingStatus,
     bookingConfirmationCode,
+    pickupLat,
+    pickupLng,
   } = route.params;
 
   return (
@@ -39,8 +42,17 @@ const ManageBookingDetails = ({ navigation, route }) => {
           <Text>Vehicle: {vehicleMakeAndModel}</Text>
           <Text>License Plate: {licensePlate}</Text>
           <Text>Booked Date: {bookingDate}</Text>
+          <Text>Pick Up Location: {pickupLat}, {pickupLng}</Text>
           <Text>${price}/day</Text>
           <Text>Status: {bookingStatus}</Text>
+          <Image
+            style={{
+              height: 250,
+              width: "100%",
+              borderRadius: 20,
+            }}
+            source={{ uri: vehiclePhoto }}
+          />
         </View>
 
         <View
@@ -66,7 +78,12 @@ const ManageBookingDetails = ({ navigation, route }) => {
           </Text>
           <View style={{ flexDirection: "row" }}>
             <Image
-              style={{ height: 200, width: 200, borderRadius: 20, borderWidth: 1, }}
+              style={{
+                height: 200,
+                width: 200,
+                borderRadius: 20,
+                borderWidth: 1,
+              }}
               source={{ uri: renterPhoto }}
             />
             <View

@@ -41,7 +41,7 @@ const ManageBookingList = ({ navigation }) => {
     console.log(`Fetching...`);
 
     try {
-      const bookingCollectionRef = collection(db, "bookings");
+      const bookingCollectionRef = collection(db, "book");
 
       // Fetch all documents from the collection
       const querySnapshot = await getDocs(bookingCollectionRef);
@@ -54,7 +54,7 @@ const ManageBookingList = ({ navigation }) => {
       // Update the state with the fetched bookings
       setBookingArray(fetchedBookings);
       setIsLoading(false);
-      // console.log(`bookingArray: ${JSON.stringify(bookingArray)}`);
+      console.log(`bookingArray: ${JSON.stringify(bookingArray)}`);
     } catch (err) {
       console.error(`Error fetching videos: ${err}`);
     }
@@ -64,6 +64,7 @@ const ManageBookingList = ({ navigation }) => {
   const goToDetails = (
     id,
     vehicleMakeAndModel,
+    vehiclePhoto,
     bookingConfirmationCode,
     bookingStatus,
     bookingDate,
@@ -72,11 +73,14 @@ const ManageBookingList = ({ navigation }) => {
     price,
     licensePlate,
     acceptBooking,
-    declineBooking
+    declineBooking,
+    pickupLat,
+    pickupLng,
   ) => {
     navigation.navigate("Booking Details", {
       id: id,
       vehicleMakeAndModel: vehicleMakeAndModel,
+      vehiclePhoto: vehiclePhoto,
       bookingConfirmationCode: bookingConfirmationCode,
       bookingStatus: bookingStatus,
       bookingDate: bookingDate,
@@ -86,6 +90,8 @@ const ManageBookingList = ({ navigation }) => {
       licensePlate: licensePlate,
       acceptBooking: acceptBooking,
       declineBooking: declineBooking,
+      pickupLat: pickupLat,
+      pickupLng: pickupLng,
     });
   };
 
@@ -101,12 +107,12 @@ const ManageBookingList = ({ navigation }) => {
 
     try {
       const documentRef = doc(
-        collection(db, "bookings"), //Firebase Collection name
+        collection(db, "book"), //Firebase Collection name
         id //Document ID
       );
       await updateDoc(documentRef, {
-        bookingStatus: "Accepted",
-        bookingConfirmationCode: `B${randomNum}`,
+        status: "Accepted",
+        confirmationCode: `B${randomNum}`,
       });
       //setDoc(cityRef, { capital: true }, { merge: true });
 
@@ -124,12 +130,12 @@ const ManageBookingList = ({ navigation }) => {
 
     try {
       const documentRef = doc(
-        collection(db, "bookings"), //Firebase Collection name
+        collection(db, "book"), //Firebase Collection name
         id //Document ID
       );
       await updateDoc(documentRef, {
-        bookingStatus: "Declined",
-        bookingConfirmationCode: "",
+        status: "Declined",
+        confirmationCode: "",
       });
 
       // Display success message
@@ -167,19 +173,22 @@ const ManageBookingList = ({ navigation }) => {
                   goToDetails={() => {
                     goToDetails(
                       item.id,
-                      item.vehicleMakeAndModel,
-                      item.bookingConfirmationCode,
-                      item.bookingStatus,
-                      item.bookingDate,
-                      item.renterPhoto,
-                      item.renterName,
+                      item.vehicleDetails.name,
+                      item.vehicleDetails.image,
+                      item.confirmationCode,
+                      item.status,
+                      item.bookingDate, //booking Date
+                      item.renterPhoto, //renterPhoto
+                      item.userEmail, //renterName
                       item.price,
-                      item.licensePlate
+                      item.licensePlate,
+                      item.pickupLocation.latitude,
+                      item.pickupLocation.longitude,
                     );
                   }}
-                  photo={item.renterPhoto}
+                  photo={item.vehicleDetails.image}
                   price={item.price}
-                  address={item.bookingStatus}
+                  address={item.status}
                   accept={() => acceptBooking(item.id)}
                   decline={() => declineBooking(item.id)}
                 />
@@ -198,7 +207,7 @@ const ManageBookingList = ({ navigation }) => {
         }}
         onPress={fetchDataFromDB}
       >
-        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", }}>
+        <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           Refresh
         </Text>
       </TouchableOpacity>
