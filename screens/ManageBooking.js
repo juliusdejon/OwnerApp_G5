@@ -24,7 +24,7 @@ function ManageBooking() {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Manage Booking" component={ManageBookingList} />
+      <Stack.Screen name="Booking Requests" component={ManageBookingList} />
       <Stack.Screen name="Booking Details" component={ManageBookingDetails} />
     </Stack.Navigator>
   );
