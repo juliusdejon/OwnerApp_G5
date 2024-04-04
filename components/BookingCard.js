@@ -22,23 +22,24 @@ function BookingCard(props) {
         borderColor: "#cecece",
         marginHorizontal: 10,
         justifyContent: "center",
-        alignItems: "center",
+        paddingHorizontal: 20,
       }}
     >
       <Text style={{ fontSize: 16, fontWeight: "bold" }}>{status}</Text>
 
-      {confirmationCode && <Text>{confirmationCode}</Text>}
-
-      <Text>{bookingDate ? bookingDate : ""}</Text>
-      <Text>{bookedBy}</Text>
-
+      <Text style={{ fontWeight: "bold", fontSize: 18 }}>{vehicleName}</Text>
       {photo.length > 0 && (
         <Image
           source={{ uri: photo }}
           style={{ width: 150, height: 150, objectFit: "contain" }}
         />
       )}
-      <Text style={{ fontWeight: "bold", fontSize: 18 }}>{vehicleName}</Text>
+
+      <Text style={{ fontWeight: "bold" }}>
+        Booked Date: {bookingDate ? bookingDate : ""}
+      </Text>
+      <Text style={{ fontWeight: "bold" }}>Booked by: {bookedBy}</Text>
+      {confirmationCode && <Text>Confirmation Code: {confirmationCode}</Text>}
     </View>
   );
 }
