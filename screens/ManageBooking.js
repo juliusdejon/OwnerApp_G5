@@ -40,30 +40,6 @@ const ManageBookingList = ({ navigation, user }) => {
   const [bookingArray, setBookingArray] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Get documents from Firebase
-  // const fetchDataFromDB = async () => {
-  //   console.log(`Fetching...`);
-
-  //   try {
-  //     const bookingCollectionRef = collection(db, "book");
-
-  //     // Fetch all documents from the collection
-  //     const querySnapshot = await getDocs(bookingCollectionRef);
-  //     const fetchedBookings = [];
-
-  //     querySnapshot.forEach((doc) => {
-  //       fetchedBookings.push({ id: doc.id, ...doc.data() });
-  //     });
-
-  //     // Update the state with the fetched bookings
-  //     setBookingArray(fetchedBookings);
-  //     setIsLoading(false);
-  //     console.log(`bookingArray: ${JSON.stringify(bookingArray)}`);
-  //   } catch (err) {
-  //     console.error(`Error fetching videos: ${err}`);
-  //   }
-  // };
-
   //Navigate to Booking Details Handler
   const goToDetails = (
     id,
